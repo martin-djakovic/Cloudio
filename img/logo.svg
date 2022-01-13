@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Vectornator for iOS (http://vectornator.io/) -->
+
+<svg
+   height="29.628906"
+   style="clip-rule:evenodd;fill-rule:nonzero;stroke-linecap:round;stroke-linejoin:round"
+   xml:space="preserve"
+   width="144.58984"
+   version="1.1"
+   viewBox="0 0 144.58984 29.628906"
+   id="svg25"
+   sodipodi:docname="logo.svg"
+   inkscape:version="1.1.1 (3bf5ae0d25, 2021-09-20)"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns:vectornator="http://vectornator.io"><sodipodi:namedview
+   id="namedview27"
+   pagecolor="#505050"
+   bordercolor="#ffffff"
+   borderopacity="1"
+   inkscape:pageshadow="0"
+   inkscape:pageopacity="0"
+   inkscape:pagecheckerboard="1"
+   showgrid="false"
+   inkscape:zoom="5.29"
+   inkscape:cx="61.814745"
+   inkscape:cy="2.9300567"
+   inkscape:window-width="1920"
+   inkscape:window-height="1017"
+   inkscape:window-x="-8"
+   inkscape:window-y="-8"
+   inkscape:window-maximized="1"
+   inkscape:current-layer="svg25"
+   fit-margin-top="0"
+   fit-margin-left="0"
+   fit-margin-right="0"
+   fit-margin-bottom="0" />
+<metadata
+   id="metadata2">
+<vectornator:setting
+   key="DynamicGuides"
+   value="0" />
+<vectornator:setting
+   key="doHistoryDisabled"
+   value="0" />
+<vectornator:setting
+   key="SnapToPoints"
+   value="0" />
+<vectornator:setting
+   key="PencilOnly"
+   value="0" />
+<vectornator:setting
+   key="DisplayWhiteBackground"
+   value="0" />
+<vectornator:setting
+   key="Units"
+   value="Pixels" />
+<vectornator:setting
+   key="DimensionsVisible"
+   value="1" />
+<vectornator:setting
+   key="IsolateActiveLayer"
+   value="0" />
+<vectornator:setting
+   key="TimeLapseWatermarkDisabled"
+   value="0" />
+<vectornator:setting
+   key="RulersVisible"
+   value="1" />
+<vectornator:setting
+   key="OutlineMode"
+   value="0" />
+<vectornator:setting
+   key="GuidesVisible"
+   value="1" />
+<vectornator:setting
+   key="SnapToGrid"
+   value="0" />
+<vectornator:setting
+   key="CMYKEnabledKey"
+   value="0" />
+<vectornator:setting
+   key="SnapToGuides"
+   value="1" />
+<vectornator:setting
+   key="SnapToEdges"
+   value="0" />
+</metadata>
+<defs
+   id="defs4"><rect
+     x="-0.18903592"
+     y="0"
+     width="200.18904"
+     height="49.905483"
+     id="rect6193" /><rect
+     x="-0.18903592"
+     y="-0.18903592"
+     width="200.37807"
+     height="50.283554"
+     id="rect79229" /><rect
+     x="0.18903592"
+     y="0"
+     width="199.24387"
+     height="49.905483"
+     id="rect5545" /></defs>
+
+<text
+   xml:space="preserve"
+   id="text5543"
+   style="font-style:normal;font-weight:normal;font-size:40px;line-height:1.25;font-family:sans-serif;white-space:pre;shape-inside:url(#rect5545);fill:#000000;fill-opacity:1;stroke:none"
+   transform="translate(-3.5996094,-6.9090831)" /><text
+   xml:space="preserve"
+   style="font-style:normal;font-weight:normal;font-size:40px;line-height:1.25;font-family:sans-serif;fill:#000000;fill-opacity:1;stroke:none"
+   x="1.6933961"
+   y="38.081463"
+   id="text39303"><tspan
+     sodipodi:role="line"
+     id="tspan39301"
+     x="1.6933961"
+     y="38.081463" /></text><g
+   id="g52224"
+   transform="translate(-3.5996094,-6.9090831)"><g
+     id="g54156"><text
+       xml:space="preserve"
+       id="text6191"
+       style="font-style:normal;font-weight:normal;font-size:40px;line-height:1.25;font-family:sans-serif;white-space:pre;shape-inside:url(#rect6193);fill:#000000;fill-opacity:1;stroke:none"
+       transform="translate(14.555766,-1.7013232)"><tspan
+         x="-0.18945312"
+         y="35.390625"
+         id="tspan99666"><tspan
+           style="font-style:italic;font-weight:bold;font-size:32px;font-family:Arial;-inkscape-font-specification:'Arial, Bold Italic';fill:#1a1a1a"
+           id="tspan99662">Cloud</tspan><tspan
+           style="font-style:italic;font-weight:bold;font-size:32px;font-family:Arial;-inkscape-font-specification:'Arial, Bold Italic';fill:#2c5aa0"
+           id="tspan99664">io</tspan></tspan></text></g></g></svg>
