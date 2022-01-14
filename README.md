@@ -60,7 +60,10 @@ Cloudio:
     index.php
     Mysql.php
     mysql_connect.php
-    mysql_credentials.php
+    mysql_credentials.php [SCRIPT:
+        const DB_USER="";
+        const DB_PASSWORD="";
+    ]
     process_signup_request.php
     website.php
     style.css
