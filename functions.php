@@ -90,7 +90,7 @@ function checkLogin()
 
 function printError($error)
 {
-    return '<div class="dialog_container">
+    return '<div class="dialog-container">
 				<img src="img/error_icon.svg" alt="ERROR ICON" style="height: 20px; width: 20px; top: 17px; margin-left: 5px; position: relative;">
 				<label style="font-family: Arial; color: red; position: relative; top: 13px; margin-left: 5px;" class="fontsize">'.$error.'</label>
 		  </div>';
@@ -134,7 +134,8 @@ function printAllFiles($username)
         
         echo '<div class="file">
                     <a href="website.php?file='.$str_file.'">
-                        <label style="float: left; margin-left: 3px; cursor: pointer">'.$str_file.'</label>
+                        <label style="float: left; margin-left: 5px; cursor: pointer; font-weight: normal;">'
+            .$str_file.'</label>
                         <label style="float: right; margin-right: 3px;">'.$str_fsize.'</label>
                     </a>
               </div>';

@@ -41,7 +41,7 @@ if (isset($_GET["file"])) {
     
     $fname = $_GET["file"];
     
-    $form = '<form method="post" action="website.php" class="dialog_container" style="display: flex; align-items: center;">
+    $form = '<form method="post" action="website.php" class="dialog-container" style="display: flex; align-items: center;">
                     <label style="color: black; font-family: Arial; margin-left: 5px;" class="fontsize">
                          What would you like to do with <b>'.htmlspecialchars($fname).'</b>?
                     </label>
@@ -63,9 +63,9 @@ $spaceused = $db->query($query_spaceused)->fetchArray();
 $spaceused_gb = round($spaceused["spaceused_b"] * 0.000000001, 2);
 $spacemax_gb = round(MAX_STORAGE * 0.000000001);
 
-$spaceused_graph = '<div class="spaceused">
+$spaceused_graph = '<div class="spaceused" style="padding-top: 30px;">
                         <label class="fontsize" style="font-family: Arial;">'.$spaceused_gb.' GB / '.$spacemax_gb.' GB</label>
-                            <progress max="'.MAX_STORAGE.'" value="'.$spaceused["spaceused_b"].'"></progress>
+                        <progress style="width: 100%;" max="'.MAX_STORAGE.'" value="'.$spaceused["spaceused_b"].'"></progress>
                     </div>';
 
 ?>
@@ -77,35 +77,78 @@ $spaceused_graph = '<div class="spaceused">
     }
 </script>
 
+<script>
+    window.addEventListener("resize", () => {
+        if (window.innerWidth > 620){
+            document.querySelector(':root').style.setProperty('--navbar-ht', '70px');
+        }
+    });
+</script>
+
 <html lang="en-us">
 
 <head>
     <title>Cloudio</title>
     <link rel="stylesheet" href="style.css">
     <meta name="viewport" content="width=device-width,height=device-height,initial-scale=1.0"/>
+    <script src="ui.js"></script>
 </head>
 
-<body style="margin: 0 0 0 0;">
+<body style="margin: 0 0 0 0; overflow-y: scroll; overflow-x: hidden;">
 
-<div class="navbar_container_top">
+<!-- RIGHT NAVBAR -->
+<div class="navbar-container-right">
     <form action="website.php" method="post" enctype="multipart/form-data">
-        <button class="button-signup" style="width: 100px; margin: 10px 10px 10px 10px; float: right;" name="logout">
-            Log out
-        </button>
         <label class="button-login"
-               style="width: 100px; height: 35px; margin: 10px 10px 10px 10px; float: left; text-align: center; display: block">
+               style="height: 35px; margin: var(--navbar-ht) 10px 10px 10px; float: left; text-align: center;
+               display: block; width: calc(100% - 20px)">
             Upload
             <input type="file" name="upload[]" multiple class="button-login"
                    style="font-size: 10px; margin: auto; text-align-last: center; height: 10px;">
         </label>
         <input type="submit" class="button-login" name="submit_upload" value="Submit"
-               style="width: 100px; float: left; text-align: center; margin-top: 10px;">
+               style="float: left; text-align: center; width: calc(100% - 20px); margin-left: 10px;
+               margin-right: 10px; margin-top: 0;">
     </form>
     <?php
-    echo $spaceused_graph; ?>
+    echo $spaceused_graph;
+    ?>
 </div>
 
-<div style="margin-top: calc(var(--navbar-height) + var(--space-used-height) - 10px); padding-bottom: var(--dialog-height)">
+<!-- TOP NAVBAR -->
+<div class="navbar-container-top">
+
+    <button class="dropdown-btn" onclick="dropdown();">
+        <img src="img/dropdown.svg" style="width: 40px; height: 40px; opacity: 90%;" alt="MENU BUTTON">
+    </button>
+
+    <form method="post">
+        <button class="button-signup" style="width: 100px; margin: 10px 10px 10px 10px; float: right;"
+                name="logout">
+            Log out
+        </button>
+    </form>
+
+    <form method="post" enctype="multipart/form-data" style="margin: 0 0 0 0;">
+        <label class="button-login"
+               style="height: 35px; margin: 100px 10px 10px 10px; float: left; text-align: center;
+               display: block; width: calc(100% - 20px)">
+            Upload
+            <input type="file" name="upload[]" multiple class="button-login"
+                   style="font-size: 10px; margin: auto; text-align-last: center; height: 10px;">
+        </label>
+        <input type="submit" class="button-login" name="submit_upload" value="Submit"
+               style="float: left; text-align: center; width: calc(100% - 20px); margin-left: 10px;
+               margin-right: 10px; margin-top: 0;">
+    </form>
+    
+    <?php
+    echo $spaceused_graph;
+    ?>
+    
+</div>
+
+<div class="file-container">
     
     <?php
     
