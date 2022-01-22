@@ -54,7 +54,7 @@ Cloudio:
         logo.svg
 
     user_folders/:
-        [EMPTY]
+        .htaccess
 
     functions.php
     index.php

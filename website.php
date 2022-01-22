@@ -26,7 +26,8 @@ if (isset($_POST["logout"])) {
 if (isset($_POST["file"])) {
     
     $fname = $_POST["file"];
-    $abs_path = "user_folders/".$username."/";
+    $abs_path = USER_FOLDERS_PATH.$username."/";
+    
     $query_check_file = "SELECT name FROM user_files WHERE owner = '$username' AND name = '$fname'";
     $query_check_file_rows = $db->query($query_check_file)->numRows();
     

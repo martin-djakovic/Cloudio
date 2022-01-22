@@ -2,8 +2,6 @@
 
 require_once "mysql_connect.php";
 
-# LOGIN FUNCTIONS
-
 # SPECIAL SYMBOL EXCLUSION REGEX
 # Regex characters, such as / must be ESCAPED with \\
 const USERNAME_ALLOWED_SYMBOLS = "/[^0-9a-zA-Z_]/";
@@ -12,6 +10,7 @@ const MAX_UPLOAD_SIZE = 1000000000;
 const MAX_UPLOAD_COUNT = 50;
 # 10 GB
 const MAX_STORAGE = 10000000000;
+const USER_FOLDERS_PATH = "user_folders/";
 
 # LOGIN FUNCTIONS
 
@@ -194,7 +193,7 @@ function upload($file_input_name = "upload")
             
             if ($_FILES[$file_input_name]["tmp_name"][$i] != "") {
                 
-                $dir = "user_folders/".$username."/";
+                $dir = USER_FOLDERS_PATH.$username."/";
                 $tmp_file = $_FILES[$file_input_name]["tmp_name"][$i];
                 $filename_original = $_FILES[$file_input_name]["name"][$i];
                 $filename = $filename_original;
