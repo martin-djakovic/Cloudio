@@ -125,11 +125,15 @@ function printAllFiles($username)
     $fsizes = $db->query($query_getsizes)->fetchAll();
     
     for ($i = 0; $i < count($files); $i++) {
+    
+        $abs_path = USER_FOLDERS_PATH.$username."/";
         
         $file = $files[$i]["name"];
         $fsize = $fsizes[$i]["size"];
         $str_file = strval($file);
         $str_fsize = strval($fsize);
+        $mime_full = mime_content_type($abs_path.$file);
+        $mime_basic = explode("/", $mime_full);
         
         echo '<div class="file">
                     <a href="website.php?file='.$str_file.'">
@@ -158,7 +162,6 @@ function delete($fullpath, $fname, $username)
 
 function upload($file_input_name = "upload")
 {
-    
     global $db;
     
     $username = $_SESSION["user"];

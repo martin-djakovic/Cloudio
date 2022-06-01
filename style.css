@@ -4,7 +4,8 @@
     --dialog-ht: 55px;
     --navbar-ht: 70px;
     --space-used-ht: 32px;
-    --navbar-right-wd: 200px;
+    --navbar-left-wd: 200px;
+    --text-no-files-size: 25px;
 }
 
 .fontsize {
@@ -53,6 +54,19 @@ form {
     height: 40px;
 }
 
+.text-no-files {
+
+    text-align: center;
+    position: relative;
+    top: 35%;
+    left: 50%;
+    margin-right: -50%;
+    transform: translate(-50%, -35%);
+    color: #141414;
+    font-family: Arial;
+    font-size: var(--text-no-files-size);
+}
+
 /* FOR TEXT/PASSWORD INPUT ONLY */
 input {
 
@@ -77,12 +91,14 @@ input:focus {
     outline: none;
 }
 
-input[type=file]::file-selector-button {
+input[type="file"]::file-selector-button {
     display: none;
 }
 
-input[type=file] {
+input[type="file"] {
+
     cursor: pointer;
+    text-align: center;
 }
 
 .navbar-container-top {
@@ -107,7 +123,7 @@ input[type=file] {
     left: 0;
     top: 0;
     height: 100%;
-    width: var(--navbar-right-wd);
+    width: var(--navbar-left-wd);
     background-color: white;
     border-style: solid;
     border-width: 0;
@@ -122,8 +138,8 @@ input[type=file] {
     position: fixed;
     top: calc(100% - var(--dialog-ht));
     left: 0;
-    width: calc(100% - var(--navbar-right-wd));
-    margin-left: var(--navbar-right-wd);
+    width: calc(100% - var(--navbar-left-wd));
+    margin-left: var(--navbar-left-wd);
     height: var(--dialog-ht);
     background-color: white;
     z-index: 100;
@@ -189,9 +205,10 @@ input[type=file] {
 
 .file-container {
 
-    margin-left: var(--navbar-right-wd);
+    margin-left: var(--navbar-left-wd);
     margin-top: var(--navbar-ht);
     padding-bottom: var(--dialog-ht);
+    height: 100%;
 }
 
 .file {
@@ -218,6 +235,16 @@ input[type=file] {
 
 .dropdown-btn {
     display: none;
+}
+
+input[type="file"]::-webkit-file-upload-button {
+
+    visibility: hidden;
+    width: 0;
+    height: 0;
+    margin: 0 0 0 0;
+    padding: 0 0 0 0;
+    border-style: none;
 }
 
 ::-webkit-scrollbar {

@@ -17,7 +17,6 @@ if (!isset($_SESSION["user"])) {
 $username = $_SESSION["user"];
 
 if (isset($_POST["logout"])) {
-    
     unset($_SESSION["user"]);
     header("Location: index.php");
     exit();
@@ -71,7 +70,7 @@ $spaceused_graph = '<div class="spaceused" style="padding-top: 30px;">
 
 ?>
 
-<!-- When page is refreshed if a file was uploaded it will be uploaded again-->
+<!-- When page is refreshed if a file was uploaded it will be uploaded again, this fixes it -->
 <script>
     if (window.history.replaceState) {
         window.history.replaceState(null, null, window.location.href);
@@ -80,9 +79,10 @@ $spaceused_graph = '<div class="spaceused" style="padding-top: 30px;">
 
 <script>
     window.addEventListener("resize", () => {
-        if (window.innerWidth > 620){
+        /*if (window.innerWidth > 620){
             document.querySelector(':root').style.setProperty('--navbar-ht', '70px');
-        }
+            document.querySelector(':root').style.setProperty('--text-no-files-size', '25px');
+        }*/
     });
 </script>
 
@@ -153,10 +153,16 @@ $spaceused_graph = '<div class="spaceused" style="padding-top: 30px;">
     
     <?php
     
+    $file_count = $db->query("SELECT * FROM user_files WHERE owner = '$username'")->numRows();
+    
     printAllFiles($username);
     
     echo $form;
     echo $upload;
+    
+    if ($file_count <= 0){
+        echo '<p class="text-no-files">Oops!<br>It seems you have no files!</p>';
+    }
     
     ?>
 </div>
