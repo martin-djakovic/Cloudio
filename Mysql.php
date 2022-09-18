@@ -1,5 +1,6 @@
 <?php
 
+require_once "functions.php";
 
 class Mysql
 {
@@ -14,7 +15,12 @@ class Mysql
     {
         $this->connection = new mysqli($dbhost, $dbuser, $dbpass, $dbname);
         if ($this->connection->connect_error) {
-            $this->error('Failed to connect to MySQL - '.$this->connection->connect_error);
+
+            echo '<head>
+                      <title>Cloudio - MySql Error</title>
+                  </head>';
+
+            $this->error(printMysqlError($this->connection->connect_error));
         }
         $this->connection->set_charset($charset);
     }
