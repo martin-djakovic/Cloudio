@@ -19,14 +19,7 @@ on any device.
 Every user is allocated a pre-determined amount of storage space which they can use to store almost any file type in their personal folder
 in the cloud. The user would then be able to download those files, or delete them to free up more storage space. In the future, there are
 plans to add more features to make Cloudio more convenient, such as renaming files, previewing image and text files, searching through your
-folder to find documents more easily, creating folders for better organization... Cloudio is aiming to be user-friendly, but still
-sophisticated enough to be useful. Overall, this cloud storage platform is a great alternative to carrying around a fragile, easy to lose
-USB stick everywhere you go, as with this program you can access your files just by remembering a password and a username. You can also
-easily sync your work across devices. Ever heard of plugging in a USB into your phone to revise on your upcoming presentation? I think not,
-but with Cloudio it is not just possible, but also very easy and accessible.
-
-This project was started as a hobby and there are no plans to expand it to commercial use. It is just being developed
-by a beginner web-developer for fun and better learning the arts of programming.
+folder to find documents more easily, creating folders for better organization...
 &nbsp;
 
 &nbsp;
