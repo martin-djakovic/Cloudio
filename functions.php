@@ -112,7 +112,7 @@ function printError($error)
 function printMysqlError($error)
 {
     return '<div style="display: block; position: absolute; left: 0; top: 0; width: 100%;">    
-                <label style="font-family: Arial; color: white; left: 0; top: 0; width: 100%; font-weight: bold; font-size: 56px; background-color: red; height: 150px; display: flex; align-items: center; margin-bottom: 10px; padding-left: 10px;" class="fontsize">' . 'Fatal MySql Error' . '</label>
+                <label style="font-family: Arial; color: white; left: 0; top: 0; width: 100%; font-weight: bold; font-size: 56px; background-color: red; height: 150px; display: flex; align-items: center; margin-bottom: 10px; padding-left: 10px;" class="fontsize">' . 'Fatal MySQL Error' . '</label>
                 <label style="font-family: Arial; color: black; font-weight: bold; font-size: 20px; padding-left: 10px;">' . 'Error code: ' . '</label>
                 <label style="font-family: Arial; color: black; font-size: 20px;">' . $error . '</label>
             </div>';

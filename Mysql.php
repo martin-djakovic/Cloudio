@@ -17,7 +17,7 @@ class Mysql
         if ($this->connection->connect_error) {
 
             echo '<head>
-                      <title>Cloudio - MySql Error</title>
+                      <title>Cloudio - MySQL Error</title>
                   </head>';
 
             $this->error(printMysqlError($this->connection->connect_error));
