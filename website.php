@@ -7,53 +7,63 @@ global $db;
 
 $form = "";
 
-session_start();
+//session_start();
 
-if (!isset($_SESSION["user"])) {
+
+if (!isset($_COOKIE["login"])) {
     header("Location: index.php");
     exit();
+} else {
+    $user_logged_in = $db->query("SELECT logged_in FROM user_accounts WHERE username = '" . $_COOKIE["login"] . "'")->fetchArray();
+
+    if ($user_logged_in["logged_in"] != 1) {
+        header("Location: index.php");
+        exit();
+    }
 }
 
-$username = $_SESSION["user"];
+$username = $_COOKIE["login"];
 
 if (isset($_POST["logout"])) {
-    unset($_SESSION["user"]);
+    $db->query("UPDATE user_accounts SET logged_in=0 WHERE username = '$username'");
     header("Location: index.php");
     exit();
 }
 
 if (isset($_POST["file"])) {
-    
+
     $fname = $_POST["file"];
-    $abs_path = USER_FOLDERS_PATH.$username."/";
-    
+    $abs_path = USER_FOLDERS_PATH . $username . "/";
+
     $query_check_file = "SELECT name FROM user_files WHERE owner = '$username' AND name = '$fname'";
     $query_check_file_rows = $db->query($query_check_file)->numRows();
-    
+
     if (isset($_POST["delete"]) && $query_check_file_rows > 0) {
-        delete($abs_path.$fname, $fname, $username);
-    } else if (isset($_POST["download"]) && $query_check_file_rows > 0) {
-        download($abs_path.$fname);
+        delete($abs_path . $fname, $fname, $username);
+    } else {
+        if (isset($_POST["download"]) && $query_check_file_rows > 0) {
+            download($abs_path . $fname);
+        }
     }
 }
 
 if (isset($_GET["file"])) {
-    
+
     $fname = $_GET["file"];
-    
+
     $form = '<form method="post" action="website.php" class="dialog-container" style="display: flex; align-items: center;">
                     <label style="color: black; font-family: Arial; margin-left: 5px;" class="fontsize">
-                         What would you like to do with <b>'.htmlspecialchars($fname).'</b>?
+                         What would you like to do with <b>' . htmlspecialchars($fname) . '</b>?
                     </label>
-                    <input type="hidden" name="file" value="'.htmlspecialchars($fname).'"/>
+                    <input type="hidden" name="file" value="' . htmlspecialchars($fname) . '"/>
                     <button type="submit" name="delete" class="button-delete">Delete</button>
                     <button type="submit" name="download" class="button-login" style="width: 100px; margin-top: auto; margin-bottom: 10px; margin-right: 10px"
-                    onclick='."setTimeout(function(){window.location.href='website.php';},1000)".'>Download</button>
+                    onclick=' . "setTimeout(function(){window.location.href='website.php';},1000)" . '>Download</button>
               </form>';
 }
 
 if (isset($_POST["submit_upload"])) {
-    
+
     $upload = upload();
 }
 
@@ -64,8 +74,8 @@ $spaceused_gb = round($spaceused["spaceused_b"] * 0.000000001, 2);
 $spacemax_gb = round(MAX_STORAGE * 0.000000001);
 
 $spaceused_graph = '<div class="spaceused" style="padding-top: 30px;">
-                        <label class="fontsize" style="font-family: Arial;">'.$spaceused_gb.' GB / '.$spacemax_gb.' GB</label>
-                        <progress style="width: 100%;" max="'.MAX_STORAGE.'" value="'.$spaceused["spaceused_b"].'"></progress>
+                        <label class="fontsize" style="font-family: Arial;">' . $spaceused_gb . ' GB / ' . $spacemax_gb . ' GB</label>
+                        <progress style="width: 100%;" max="' . MAX_STORAGE . '" value="' . $spaceused["spaceused_b"] . '"></progress>
                     </div>';
 
 ?>
@@ -142,28 +152,28 @@ $spaceused_graph = '<div class="spaceused" style="padding-top: 30px;">
                style="float: left; text-align: center; width: calc(100% - 20px); margin-left: 10px;
                margin-right: 10px; margin-top: 0;">
     </form>
-    
+
     <?php
     echo $spaceused_graph;
     ?>
-    
+
 </div>
 
 <div class="file-container">
-    
+
     <?php
-    
+
     $file_count = $db->query("SELECT * FROM user_files WHERE owner = '$username'")->numRows();
-    
+
     printAllFiles($username);
-    
+
     echo $form;
     echo $upload;
-    
-    if ($file_count <= 0){
+
+    if ($file_count <= 0) {
         echo '<p class="text-no-files">Oops!<br>It seems you have no files!</p>';
     }
-    
+
     ?>
 </div>
 </body>
