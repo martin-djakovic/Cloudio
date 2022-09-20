@@ -7,25 +7,17 @@ global $db;
 
 $form = "";
 
-//session_start();
+session_start();
 
-
-if (!isset($_COOKIE["login"])) {
+if (!isset($_SESSION["user"])) {
     header("Location: index.php");
     exit();
-} else {
-    $user_logged_in = $db->query("SELECT logged_in FROM user_accounts WHERE username = '" . $_COOKIE["login"] . "'")->fetchArray();
-
-    if ($user_logged_in["logged_in"] != 1) {
-        header("Location: index.php");
-        exit();
-    }
 }
 
-$username = $_COOKIE["login"];
+$username = $_SESSION["user"];
 
 if (isset($_POST["logout"])) {
-    $db->query("UPDATE user_accounts SET logged_in=0 WHERE username = '$username'");
+    unset($_SESSION["login"]);
     header("Location: index.php");
     exit();
 }

@@ -5,18 +5,13 @@ error_reporting(E_COMPILE_ERROR);
 require_once "functions.php";
 require_once "mysql_connect.php";
 
-//session_start();
-//if (isset($_COOKIE["user"]))
+session_start();
 
-if (isset($_COOKIE["login"])) {
-    $user_logged_in = $db->query("SELECT logged_in FROM user_accounts WHERE username = '" . $_COOKIE["login"] . "'")->fetchArray();
-
-    if ($user_logged_in["logged_in"] == 1) {
-        echo '<meta http-equiv="refresh" content="0; url=website.php">';
-    }
+if (isset($_SESSION["user"])) {
+    echo '<meta http-equiv="refresh" content="0; url=website.php">';
 }
 
-$username = $_COOKIE["login"];
+$username = $_SESSION["user"];
 
 ?>
 
@@ -56,10 +51,7 @@ $username = $_COOKIE["login"];
 
     if (checkLogin()) {
 
-        //$_SESSION["user"] = $_POST["text_username_login"];
-        # Cookie lasts for 100y (shouldn't expire)
-        setcookie("login", $_POST["text_username_login"], time() + (100 * 365 * 24 * 60 * 60));
-        $db->query("UPDATE user_accounts SET logged_in=1 WHERE username = '$username'");
+        $_SESSION["user"] = $_POST["text_username_login"];
 
         echo '<div style = "font-size: 12px; font-family: arial; color: green; float: left; margin-left: 1px;">
                   <label style="vertical-align: middle;">Logged in! Redirecting...</label>
