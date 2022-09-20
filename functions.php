@@ -155,8 +155,6 @@ function printAllFiles($username)
         $fsize = $fsizes[$i]["size"];
         $str_file = strval($file);
         $str_fsize = strval($fsize);
-        $mime_full = mime_content_type($abs_path . $file);
-        $mime_basic = explode("/", $mime_full);
 
         echo '<div class="file">
                     <a href="website.php?file=' . $str_file . '">
@@ -225,13 +223,19 @@ function upload($file_input_name = "upload")
                 $tmp_file = $_FILES[$file_input_name]["tmp_name"][$i];
                 $filename_original = $_FILES[$file_input_name]["name"][$i];
                 $filename = $filename_original;
+                // Filesize in bytes
                 $filesize_raw = filesize($tmp_file);
                 $filesize_mb = $filesize_raw / 1000000;
+                $filesize_kb = round($filesize_mb * 1000);
                 $filesize = round($filesize_mb) . " MB";
                 $num_same_files = 0;
 
-                if ($filesize_mb < 1) {
-                    $filesize = round($filesize_mb * 1000) . " KB";
+                if ($filesize_kb < 1) {
+                    $filesize = $filesize_raw . " B";
+                } else {
+                    if ($filesize_mb < 1) {
+                        $filesize = $filesize_kb . " KB";
+                    }
                 }
 
                 while (true) {
