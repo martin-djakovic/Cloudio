@@ -17,7 +17,7 @@ if (!isset($_SESSION["user"])) {
 $username = $_SESSION["user"];
 
 if (isset($_POST["logout"])) {
-    unset($_SESSION["login"]);
+    unset($_SESSION["user"]);
     header("Location: index.php");
     exit();
 }

@@ -5,6 +5,8 @@ error_reporting(E_COMPILE_ERROR);
 include_once "functions.php";
 include_once "mysql_connect.php";
 
+session_start();
+
 ?>
 
 <html lang="en-us">
@@ -52,8 +54,10 @@ include_once "mysql_connect.php";
                 <label style="vertical-align: middle;">Created account! Redirecting...</label>
           </div>';
         
-        # Redirect to index
-        echo '<meta http-equiv="refresh" content="2; url=index.php">';
+        # Redirect to website
+        unset($_SESSION["user"]);
+        $_SESSION["user"] = $username_signup;
+        echo '<meta http-equiv="refresh" content="2; url=website.php">';
     } else {
         
         $error = checkSignup();
