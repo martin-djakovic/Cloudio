@@ -28,11 +28,11 @@ folder to find documents more easily, creating folders for better organization..
 
 Cloudio uses the LAMP stack to run in a docker container.
 
-LINUX: `Debian GNU/Linux 9`
+LINUX: `Ubuntu 22.04.1/Linux 5.15.0-48-generic`
 
-APACHE: `2.4.38`
+APACHE: `2.4.52`
 
-MYSQL: `5.7.22`
+MYSQL: `8.0.30-0ubuntu0.22.04.1`
 
 PHP: `7.3`
 &nbsp;
@@ -69,12 +69,12 @@ Cloudio:
 ```
 cloudio:
     user_accounts:
-        username VARCHAR(16)
+        username VARCHAR(64)
         spaceused_b BIGINT(20) DEFAULT=0
         password VARCHAR(64)
 
     user_files:
-        owner VARCHAR(16)
+        owner VARCHAR(64)
         name VARCHAR(225)
         size VARCHAR(6)
 ```
@@ -83,11 +83,11 @@ MySQL query to replicate database:
 CREATE DATABASE cloudio;
 USE cloudio;
 CREATE TABLE user_accounts(
-     username VARCHAR(16),
+     username VARCHAR(64),
      spaceused_b BIGINT NOT NULL DEFAULT 0,
      password VARCHAR(64));
 CREATE TABLE user_files(
-    owner VARCHAR(16) NOT NULL,
+    owner VARCHAR(64) NOT NULL,
     name VARCHAR(225) NOT NULL,
     size VARCHAR(6) NOT NULL);
 ```
