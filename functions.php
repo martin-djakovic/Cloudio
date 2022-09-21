@@ -34,6 +34,8 @@ function checkSignup()
 
         $username_contains_symbols = preg_match(USERNAME_ALLOWED_SYMBOLS, $username);
 
+        $username = hash("sha256", $_POST["text_username_signup"]);
+
         $query_username_exists = "SELECT username FROM user_accounts WHERE username = '$username'";
         $query_result = $db->query($query_username_exists)->numRows();
 
@@ -85,14 +87,15 @@ function checkLogin()
     $username = $_POST["text_username_login"];
     $password = $_POST["text_password_login"];
     $password_hashed = hash("sha256", $password);
+    $username_hashed = hash("sha256", $username);
 
-    $query_username = "SELECT username FROM user_accounts WHERE username = '$username'";
-    $query_password = "SELECT password FROM user_accounts WHERE username = '$username'";
+    $query_username = "SELECT username FROM user_accounts WHERE username = '$username_hashed'";
+    $query_password = "SELECT password FROM user_accounts WHERE username = '$username_hashed'";
 
     $username_query_result = $db->query($query_username)->fetchAll();
     $password_query_result = $db->query($query_password)->fetchAll();
 
-    if ($password_hashed == $password_query_result[0]["password"] && $username == $username_query_result[0]["username"]) {
+    if ($password_hashed == $password_query_result[0]["password"] && $username_hashed == $username_query_result[0]["username"]) {
         return true;
     } else {
         return false;
@@ -186,12 +189,13 @@ function upload($file_input_name = "upload")
     global $db;
 
     $username = $_SESSION["user"];
+    $username_hashed = hash("sha256", $username);
     $file_count = count($_FILES[$file_input_name]["tmp_name"]);
     $upload = true;
     $return = "";
     $upload_size = 0;
 
-    $query_spaceused = "SELECT spaceused_b FROM user_accounts WHERE username = '$username'";
+    $query_spaceused = "SELECT spaceused_b FROM user_accounts WHERE username = '$username_hashed'";
     $spaceused = $db->query($query_spaceused)->fetchArray();
 
     if (count($_FILES[$file_input_name]["tmp_name"]) > MAX_UPLOAD_COUNT) {
@@ -219,7 +223,7 @@ function upload($file_input_name = "upload")
 
             if ($_FILES[$file_input_name]["tmp_name"][$i] != "") {
 
-                $dir = USER_FOLDERS_PATH . $username . "/";
+                $dir = USER_FOLDERS_PATH . $username_hashed . "/";
                 $tmp_file = $_FILES[$file_input_name]["tmp_name"][$i];
                 $filename_original = $_FILES[$file_input_name]["name"][$i];
                 $filename = $filename_original;
@@ -240,7 +244,7 @@ function upload($file_input_name = "upload")
 
                 while (true) {
 
-                    $query_check_file = "SELECT name FROM user_files WHERE owner = '$username' AND name = '$filename'";
+                    $query_check_file = "SELECT name FROM user_files WHERE owner = '$username_hashed' AND name = '$filename'";
                     $query_check_file_rows = $db->query($query_check_file)->numRows();
 
                     if ($query_check_file_rows > 0) {
@@ -255,10 +259,10 @@ function upload($file_input_name = "upload")
                     }
                 }
 
-                $query_upload = "INSERT INTO user_files (owner, name, size) VALUES ('$username', '$filename', '$filesize')";
+                $query_upload = "INSERT INTO user_files (owner, name, size) VALUES ('$username_hashed', '$filename', '$filesize')";
                 $db->query($query_upload);
 
-                $query_add_to_size = "UPDATE user_accounts SET spaceused_b = spaceused_b + $filesize_raw WHERE username = '$username'";
+                $query_add_to_size = "UPDATE user_accounts SET spaceused_b = spaceused_b + $filesize_raw WHERE username = '$username_hashed'";
                 $db->query($query_add_to_size);
 
                 move_uploaded_file($tmp_file, $dir . $filename);

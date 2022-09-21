@@ -3,6 +3,8 @@
 require_once "mysql_connect.php";
 require_once "functions.php";
 
+error_reporting((E_COMPILE_ERROR));
+
 global $db;
 
 $form = "";
@@ -15,6 +17,7 @@ if (!isset($_SESSION["user"])) {
 }
 
 $username = $_SESSION["user"];
+$username_hashed = hash("sha256", $username);
 
 if (isset($_POST["logout"])) {
     unset($_SESSION["user"]);
@@ -25,13 +28,13 @@ if (isset($_POST["logout"])) {
 if (isset($_POST["file"])) {
 
     $fname = $_POST["file"];
-    $abs_path = USER_FOLDERS_PATH . $username . "/";
+    $abs_path = USER_FOLDERS_PATH . $username_hashed . "/";
 
-    $query_check_file = "SELECT name FROM user_files WHERE owner = '$username' AND name = '$fname'";
+    $query_check_file = "SELECT name FROM user_files WHERE owner = '$username_hashed' AND name = '$fname'";
     $query_check_file_rows = $db->query($query_check_file)->numRows();
 
     if (isset($_POST["delete"]) && $query_check_file_rows > 0) {
-        delete($abs_path . $fname, $fname, $username);
+        delete($abs_path . $fname, $fname, $username_hashed);
     } else {
         if (isset($_POST["download"]) && $query_check_file_rows > 0) {
             download($abs_path . $fname);
@@ -59,7 +62,7 @@ if (isset($_POST["submit_upload"])) {
     $upload = upload();
 }
 
-$query_spaceused = "SELECT spaceused_b FROM user_accounts WHERE username = '$username'";
+$query_spaceused = "SELECT spaceused_b FROM user_accounts WHERE username = '$username_hashed'";
 $spaceused = $db->query($query_spaceused)->fetchArray();
 
 $spaceused_gb = round($spaceused["spaceused_b"] * 0.000000001, 2);
@@ -155,9 +158,9 @@ $spaceused_graph = '<div class="spaceused" style="padding-top: 30px;">
 
     <?php
 
-    $file_count = $db->query("SELECT * FROM user_files WHERE owner = '$username'")->numRows();
+    $file_count = $db->query("SELECT * FROM user_files WHERE owner = '$username_hashed'")->numRows();
 
-    printAllFiles($username);
+    printAllFiles($username_hashed);
 
     echo $form;
     echo $upload;

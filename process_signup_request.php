@@ -43,12 +43,13 @@ session_start();
         $username_signup = $_POST["text_username_signup"];
         $password_signup = $_POST["text_password_signup"];
         $password_hashed = hash("sha256", $password_signup);
+        $username_hashed = hash("sha256", $username_signup);
         
-        $query_create_user = "INSERT INTO user_accounts (username, password) VALUES ('$username_signup', '$password_hashed')";
+        $query_create_user = "INSERT INTO user_accounts (username, password) VALUES ('$username_hashed', '$password_hashed')";
         $db->query($query_create_user);
         
-        mkdir("user_folders/".$username_signup);
-        chmod("user_folders/".$username_signup, 0755);
+        mkdir("user_folders/".$username_hashed);
+        chmod("user_folders/".$username_hashed, 0755);
         
         echo '<div style = "font-size: 12px; font-family: Arial; color: green; float: left; margin-left: 1px;">
                 <label style="vertical-align: middle;">Created account! Redirecting...</label>
