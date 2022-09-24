@@ -163,7 +163,7 @@ function printAllFiles($username)
                     <a href="website.php?file=' . $str_file . '">
                         <label style="float: left; margin-left: 5px; cursor: pointer; font-weight: normal;">'
             . $str_file . '</label>
-                        <label style="float: right; margin-right: 3px;">' . $str_fsize . '</label>
+                        <label style="float: right; margin-right: 15px;">' . $str_fsize . '</label>
                     </a>
               </div>';
     }
