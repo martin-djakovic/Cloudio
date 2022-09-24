@@ -152,8 +152,6 @@ function printAllFiles($username)
 
     for ($i = 0; $i < count($files); $i++) {
 
-        $abs_path = USER_FOLDERS_PATH . $username . "/";
-
         $file = $files[$i]["name"];
         $fsize = $fsizes[$i]["size"];
         $str_file = strval($file);
