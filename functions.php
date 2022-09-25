@@ -146,6 +146,8 @@ function printAllFiles($username)
 
     $query_getfiles = "SELECT name FROM user_files WHERE owner = '$username'";
     $query_getsizes = "SELECT size FROM user_files WHERE owner = '$username'";
+    $file_icon = "img/file-earmark-fill.svg";
+    $path = "user_folders/" . $username . "/";
 
     $files = $db->query($query_getfiles)->fetchAll();
     $fsizes = $db->query($query_getsizes)->fetchAll();
@@ -156,14 +158,35 @@ function printAllFiles($username)
         $fsize = $fsizes[$i]["size"];
         $str_file = strval($file);
         $str_fsize = strval($fsize);
+        $mime_type = explode("/", mime_content_type($path . $str_file));
 
-        echo '<div class="file">
-                    <a href="website.php?file=' . $str_file . '">
+        switch ($mime_type[0]) {
+            case "application":
+                $file_icon = "img/file-earmark-binary-fill.svg";
+                break;
+            case "audio":
+                $file_icon = "img/file-earmark-music-fill.svg";
+                break;
+            case "font":
+                $file_icon = "img/file-earmark-font-fill.svg";
+                break;
+            case "image":
+                $file_icon = "img/file-earmark-image-fill.svg";
+                break;
+            case "text":
+                $file_icon = "img/file-earmark-text-fill.svg";
+                break;
+            case "video":
+                $file_icon = "img/file-earmark-play-fill.svg";
+                break;
+        }
+
+        echo '<a href="website.php?file=' . $str_file . '" class="file">
+                    <img src="' . $file_icon . '" class="file-icon">                     
                         <label style="float: left; margin-left: 5px; cursor: pointer; font-weight: normal;">'
-            . $str_file . '</label>
-                        <label style="float: right; margin-right: 15px;">' . $str_fsize . '</label>
-                    </a>
-              </div>';
+            . $str_file . '</label>                        
+                    <label style="float: right; margin-right: 15px; margin-left: auto;">' . $str_fsize . '</label>
+              </a>';
     }
 }
 
@@ -175,7 +198,7 @@ function delete($fullpath, $fname, $username)
 
     unlink($fullpath);
 
-    $query_delete = "DELETE FROM user_files WHERE name = '$fname' AND owner = '$username'";
+    $query_delete = "DELETE FROM user_files WHERE name = '$fname' and owner = '$username'";
     $db->query($query_delete);
 
     $query_subtract_size = "UPDATE user_accounts SET spaceused_b = spaceused_b - '$filesize' WHERE username = '$username'";

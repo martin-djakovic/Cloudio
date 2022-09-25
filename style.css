@@ -8,6 +8,12 @@
     --text-no-files-size: 25px;
 }
 
+.file-icon {
+    width: 17px;
+    height: 17px;
+    margin-left: 5px;
+}
+
 progress {
     background-color: #f1f1f1;
     border-radius: 7px;
@@ -25,6 +31,7 @@ progress::-webkit-progress-value {
     border-radius: 7px;
     height: 6px;
 }
+
 progress::-moz-progress-bar {
     background-color: dodgerblue;
     border-radius: 7px;
@@ -240,8 +247,8 @@ input[type="file"] {
     --margin: 0px;
 
     display: flex;
-    flex-direction: column;
-    justify-content: center;
+    flex-direction: row;
+    align-items: center;
     border-style: solid;
     border-left-width: 0;
     border-right-width: 0;
@@ -331,8 +338,8 @@ input[type="file"]::-webkit-file-upload-button {
         --margin: 0px;
 
         display: flex;
-        flex-direction: column;
-        justify-content: center;
+        flex-direction: row;
+        align-items: center;
         border-style: solid;
         border-left-width: 0;
         border-right-width: 0;
