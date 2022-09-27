@@ -166,6 +166,9 @@ input[type="file"] {
 
 .dialog-container {
 
+    border-top-style: solid;
+    border-top-width: 1px;
+    border-top-color: darkgrey;
     position: fixed;
     top: calc(100% - var(--dialog-ht));
     left: 0;
@@ -369,6 +372,9 @@ input[type="file"]::-webkit-file-upload-button {
 
     .dialog-container {
 
+        border-top-style: solid;
+        border-top-width: 1px;
+        border-top-color: darkgrey;
         position: fixed;
         top: calc(100% - var(--dialog-ht));
         left: 0;
