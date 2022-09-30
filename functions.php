@@ -2,7 +2,7 @@
 
 require_once "mysql_connect.php";
 
-# SPECIAL SYMBOL EXCLUSION REGEX
+# SYMBOL EXCLUSION REGEX
 # Regex characters, such as / must be ESCAPED with \\
 const USERNAME_ALLOWED_SYMBOLS = "/[^0-9a-zA-Z_]/";
 # 1 GB
@@ -14,6 +14,10 @@ const USER_FOLDERS_PATH = "user_folders/";
 
 # LOGIN FUNCTIONS
 
+# Checks if data entered is valid for creating an account
+# Returns bool or string
+# False return means user account can be created
+# String return means the data provided is not valid (username is too long, username contains symbols, etc.)
 function checkSignup()
 {
 
@@ -36,6 +40,8 @@ function checkSignup()
 
         $username = hash("sha256", $_POST["text_username_signup"]);
 
+        # Check if entered username is already in database
+        # If $query_result > 0 the username provided is already in use
         $query_username_exists = "SELECT username FROM user_accounts WHERE username = '$username'";
         $query_result = $db->query($query_username_exists)->numRows();
 
@@ -80,21 +86,27 @@ function checkSignup()
     return $error;
 }
 
+# Check if data provided on login matches that in the database
+# Returns bool
+# True if user entered username and password correctly, false if not
 function checkLogin()
 {
     global $db;
 
+    # User entered username and password on login page (index.php)
     $username = $_POST["text_username_login"];
     $password = $_POST["text_password_login"];
     $password_hashed = hash("sha256", $password);
     $username_hashed = hash("sha256", $username);
 
+    # Get username and password from database for the provided username
     $query_username = "SELECT username FROM user_accounts WHERE username = '$username_hashed'";
     $query_password = "SELECT password FROM user_accounts WHERE username = '$username_hashed'";
 
     $username_query_result = $db->query($query_username)->fetchAll();
     $password_query_result = $db->query($query_password)->fetchAll();
 
+    # Check if username and password fetched from database match those entered by user
     if ($password_hashed == $password_query_result[0]["password"] && $username_hashed == $username_query_result[0]["username"]) {
         return true;
     } else {
@@ -104,6 +116,7 @@ function checkLogin()
 
 # GENERAL FUNCTIONS
 
+# Returns HTML for file upload error
 function printError($error)
 {
     return '<div class="dialog-container">
@@ -112,6 +125,7 @@ function printError($error)
 		  </div>';
 }
 
+# Returns HTML for MySQL connection error
 function printMysqlError($error)
 {
     return '<div style="display: block; position: absolute; left: 0; top: 0; width: 100%;">    
@@ -123,6 +137,9 @@ function printMysqlError($error)
 
 # FILE FUNCTIONS
 
+# Download $file from server
+# $file must be the absolute path of the file in storage
+# Example $file = "user_folders/<username_hashed>/<file_name>"
 function download($file)
 {
     $fmime = mime_content_type($file);
@@ -139,13 +156,16 @@ function download($file)
     die();
 }
 
+# Print all filenames and sizes for the current user from database
 function printAllFiles($username)
 {
 
     global $db;
 
+    # Get all file names and sizes from database
     $query_getfiles = "SELECT name FROM user_files WHERE owner = '$username'";
     $query_getsizes = "SELECT size FROM user_files WHERE owner = '$username'";
+    # Default file icon, if file type isn't detected
     $file_icon = "img/file-earmark-fill.svg";
     $path = "user_folders/" . $username . "/";
 
@@ -160,6 +180,7 @@ function printAllFiles($username)
         $str_fsize = strval($fsize);
         $mime_type = explode("/", mime_content_type($path . $str_file));
 
+        # Detect file type and set appropriate icon
         switch ($mime_type[0]) {
             case "application":
                 $file_icon = "img/file-earmark-binary-fill.svg";
@@ -190,21 +211,29 @@ function printAllFiles($username)
     }
 }
 
+# Delete file from server storage and database
+# $fullpath -> full file path
+# $fname -> only basename of file
 function delete($fullpath, $fname, $username)
 {
     global $db;
 
     $filesize = filesize($fullpath);
 
+    # Delete file from server storage
     unlink($fullpath);
 
+    # Delete file info from database
     $query_delete = "DELETE FROM user_files WHERE name = '$fname' and owner = '$username'";
     $db->query($query_delete);
 
+    # Remove file size from storage space used by user
     $query_subtract_size = "UPDATE user_accounts SET spaceused_b = spaceused_b - '$filesize' WHERE username = '$username'";
     $db->query($query_subtract_size);
 }
 
+# Upload file to server storage and info about file to database
+# Returns empty string if upload successful, or HTML error message
 function upload($file_input_name = "upload")
 {
     global $db;
@@ -219,6 +248,8 @@ function upload($file_input_name = "upload")
     $query_spaceused = "SELECT spaceused_b FROM user_accounts WHERE username = '$username_hashed'";
     $spaceused = $db->query($query_spaceused)->fetchArray();
 
+    # Check if all upload requirements are met
+    # If $upload is false, files won't be uploaded
     if (count($_FILES[$file_input_name]["tmp_name"]) > MAX_UPLOAD_COUNT) {
         $upload = false;
         $return = printError("Total file upload count can't exceed 50 files");
@@ -248,13 +279,16 @@ function upload($file_input_name = "upload")
                 $tmp_file = $_FILES[$file_input_name]["tmp_name"][$i];
                 $filename_original = $_FILES[$file_input_name]["name"][$i];
                 $filename = $filename_original;
-                // Filesize in bytes
+                # Filesize in bytes
                 $filesize_raw = filesize($tmp_file);
                 $filesize_mb = $filesize_raw / 1000000;
                 $filesize_kb = round($filesize_mb * 1000);
+                # Filesize string with unit extension
+                # Example: 100 MB
                 $filesize = round($filesize_mb) . " MB";
                 $num_same_files = 0;
 
+                # If file size is too small to represent as an integer in current unit, unit will be decreased to KB and B
                 if ($filesize_kb < 1) {
                     $filesize = $filesize_raw . " B";
                 } else {
@@ -263,6 +297,9 @@ function upload($file_input_name = "upload")
                     }
                 }
 
+                # Rename file if a file with the same name already exists
+                # File will be changed by adding an index to the end of the name
+                # Example: file.txt, file (2).txt, file (2).txt...
                 while (true) {
 
                     $query_check_file = "SELECT name FROM user_files WHERE owner = '$username_hashed' AND name = '$filename'";

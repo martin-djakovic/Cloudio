@@ -38,6 +38,7 @@ session_start();
 
     <?php
 
+    # checkSignup() returns false if there were no errors during signup
     if (checkSignup() === false) {
 
         $username_signup = $_POST["text_username_signup"];
@@ -45,15 +46,13 @@ session_start();
         $password_hashed = hash("sha256", $password_signup);
         $username_hashed = hash("sha256", $username_signup);
 
+        # Create account in database
         $query_create_user = "INSERT INTO user_accounts (username, password) VALUES ('$username_hashed', '$password_hashed')";
         $db->query($query_create_user);
 
+        # Create folder for user
         mkdir("user_folders/" . $username_hashed);
         chmod("user_folders/" . $username_hashed, 0755);
-
-        echo '<div style = "font-size: 12px; font-family: Arial; color: green; float: left; margin-left: 1px;">
-                <label style="vertical-align: middle;">Created account! Redirecting...</label>
-          </div>';
 
         # Redirect to website
         unset($_SESSION["user"]);
@@ -63,6 +62,7 @@ session_start();
 
         $error = checkSignup();
 
+        # Print signup error
         if (is_string($error)) {
             echo '<div style = "font-size: 12px; font-family: Arial; color: red; float: left;">
                   <img src="img/error_icon.svg" alt="ERROR ICON" style="width: 15px; height: 15px; vertical-align: middle; margin-left: 3px; margin-right: 3px;">

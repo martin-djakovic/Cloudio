@@ -7,6 +7,7 @@ require_once "mysql_connect.php";
 
 session_start();
 
+# If user is already logged in (if $_SESSION cookie is set), redirect to main page
 if (isset($_SESSION["user"])) {
     echo '<meta http-equiv="refresh" content="0; url=website.php">';
 }
@@ -51,16 +52,19 @@ $username = $_SESSION["user"];
 
     if (checkLogin()) {
 
+        # Set $_SESSION cookie so the website remembers the user until browser is closed
         $_SESSION["user"] = $_POST["text_username_login"];
 
+        # Prints that login was successful
         echo '<div style = "font-size: 12px; font-family: arial; color: green; float: left; margin-left: 1px;">
                   <label style="vertical-align: middle;">Logged in! Redirecting...</label>
               </div>';
 
-        # Redirect to website
+        # Redirect to main page
         echo '<meta http-equiv="refresh" content="2; url=website.php">';
 
     } else {
+        # If login button was clicked, but login unsuccessful, prints error
         if (isset($_POST["submit_login"])) {
             echo '<div style = "font-size: 12px; font-family: arial; color: red; float: left;">
                         <img src="img/error_icon.svg" alt="ERROR ICON" style="width: 15px; height: 15px; vertical-align: middle; margin-left: 3px; margin-right: 3px;">

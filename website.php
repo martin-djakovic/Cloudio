@@ -3,14 +3,16 @@
 require_once "mysql_connect.php";
 require_once "functions.php";
 
-error_reporting((E_COMPILE_ERROR));
+error_reporting(E_COMPILE_ERROR);
 
 global $db;
 
-$form = "";
+# $file_dialog -> HTML prompting user to download or delete selected file
+$file_dialog = "";
 
 session_start();
 
+# Redirect user if they aren't logged in
 if (!isset($_SESSION["user"])) {
     header("Location: index.php");
     exit();
@@ -19,17 +21,21 @@ if (!isset($_SESSION["user"])) {
 $username = $_SESSION["user"];
 $username_hashed = hash("sha256", $username);
 
+# Log out user if log out button was pressed
 if (isset($_POST["logout"])) {
     unset($_SESSION["user"]);
     header("Location: index.php");
     exit();
 }
 
+# Process result of file dialog
+# Delete or download selected file
 if (isset($_POST["file"])) {
 
     $fname = $_POST["file"];
     $abs_path = USER_FOLDERS_PATH . $username_hashed . "/";
 
+    # Make sure file exists
     $query_check_file = "SELECT name FROM user_files WHERE owner = '$username_hashed' AND name = '$fname'";
     $query_check_file_rows = $db->query($query_check_file)->numRows();
 
@@ -42,11 +48,12 @@ if (isset($_POST["file"])) {
     }
 }
 
+# If user selected a file, file dialog will be set
 if (isset($_GET["file"])) {
 
     $fname = $_GET["file"];
 
-    $form = '<form method="post" action="website.php" class="dialog-container" style="display: flex; align-items: center;">
+    $file_dialog = '<form method="post" action="website.php" class="dialog-container" style="display: flex; align-items: center;">
                     <label style="color: black; font-family: Arial; margin-left: 5px;" class="fontsize">
                          What would you like to do with <b>' . htmlspecialchars($fname) . '</b>?
                     </label>
@@ -58,7 +65,6 @@ if (isset($_GET["file"])) {
 }
 
 if (isset($_POST["submit_upload"])) {
-
     $upload = upload();
 }
 
@@ -68,6 +74,7 @@ $spaceused = $db->query($query_spaceused)->fetchArray();
 $spaceused_gb = round($spaceused["spaceused_b"] * 0.000000001, 2);
 $spacemax_gb = round(MAX_STORAGE * 0.000000001);
 
+# $spaceused_graph -> progress bar showing <space_used_by_user> / <max_space_usable>
 $spaceused_graph = '<div class="spaceused" style="padding-top: 30px;">
                         <label class="fontsize" style="font-family: Arial;">' . $spaceused_gb . ' GB / ' . $spacemax_gb . ' GB</label>
                         <progress style="width: 100%;" max="' . MAX_STORAGE . '" value="' . $spaceused["spaceused_b"] . '"></progress>
@@ -162,9 +169,11 @@ $spaceused_graph = '<div class="spaceused" style="padding-top: 30px;">
 
     printAllFiles($username_hashed);
 
-    echo $form;
+    # Print file dialog and upload error message if they are set
+    echo $file_dialog;
     echo $upload;
 
+    # Show special message if user has no files
     if ($file_count <= 0) {
         echo '<p class="text-no-files">Oops!<br>It seems you have no files!</p>';
     }
