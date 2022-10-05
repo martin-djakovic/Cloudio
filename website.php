@@ -54,14 +54,17 @@ if (isset($_GET["file"])) {
     $fname = $_GET["file"];
 
     $file_dialog = '<form method="post" action="website.php" class="dialog-container" style="display: flex; align-items: center;">
-                    <label style="color: black; font-family: Arial; margin-left: 5px;" class="fontsize">
-                         What would you like to do with <b>' . htmlspecialchars($fname) . '</b>?
-                    </label>
-                    <input type="hidden" name="file" value="' . htmlspecialchars($fname) . '"/>
-                    <button type="submit" name="delete" class="button-delete">Delete</button>
-                    <button type="submit" name="download" class="button-login" style="width: 100px; margin-top: auto; margin-bottom: 10px; margin-right: 10px"
-                    onclick=' . "setTimeout(function(){window.location.href='website.php';},1000)" . '>Download</button>
-              </form>';
+                        <a href="website.php" style="width: 27px; height: 27px; padding-bottom: 27px;">
+                            <img src="img/x.svg" style="width: 25px; height: 25px;">
+                        </a>
+                        <label style="color: black; font-family: Arial; margin-left: 5px;" class="fontsize">
+                             What would you like to do with <b>' . htmlspecialchars($fname) . '</b>?
+                        </label>
+                        <input type="hidden" name="file" value="' . htmlspecialchars($fname) . '"/>
+                        <button type="submit" name="delete" class="button-delete">Delete</button>
+                        <button type="submit" name="download" class="button-login" style="width: 100px; margin-top: auto; margin-bottom: 10px; margin-right: 10px"
+                            onclick=' . "setTimeout(function(){window.location.href='website.php';},1000)" . '>Download</button>
+                    </form>';
 }
 
 if (isset($_POST["submit_upload"])) {
