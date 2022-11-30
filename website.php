@@ -105,6 +105,7 @@ $spaceused_graph = '<div class="spaceused" style="padding-top: 30px;">
 
 <head>
     <title>Cloudio</title>
+    <link rel="icon" type="image/svg+xml" sizes="any" href="favicon.svg?v=1">
     <link rel="stylesheet" href="style.css">
     <meta name="viewport" content="width=device-width,height=device-height,initial-scale=1.0"/>
     <script src="ui.js"></script>

@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   width="16"
+   height="16"
+   viewBox="0 0 4.2333333 4.2333332"
+   version="1.1"
+   id="svg8"
+   inkscape:version="1.0.2 (e86c870879, 2021-01-15)"
+   sodipodi:docname="cloudio.favicon.old.svg">
+  <defs
+     id="defs2">
+    <rect
+       x="9.8149815"
+       y="3.039526"
+       width="23.458244"
+       height="21.592464"
+       id="rect36" />
+  </defs>
+  <sodipodi:namedview
+     id="base"
+     pagecolor="#303030"
+     bordercolor="#666666"
+     borderopacity="1.0"
+     inkscape:pageopacity="0"
+     inkscape:pageshadow="2"
+     inkscape:zoom="22.4"
+     inkscape:cx="16.577652"
+     inkscape:cy="10.208505"
+     inkscape:document-units="mm"
+     inkscape:current-layer="layer1"
+     inkscape:document-rotation="0"
+     showgrid="false"
+     inkscape:pagecheckerboard="false"
+     showborder="true"
+     inkscape:showpageshadow="false"
+     inkscape:window-width="1920"
+     inkscape:window-height="1016"
+     inkscape:window-x="0"
+     inkscape:window-y="27"
+     inkscape:window-maximized="1"
+     units="px" />
+  <metadata
+     id="metadata5">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+        <dc:title></dc:title>
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <g
+     inkscape:label="Layer 1"
+     inkscape:groupmode="layer"
+     id="layer1">
+    <g
+       id="g90"
+       transform="matrix(0.02060561,0,0,0.02060561,-0.05307347,-0.14172789)">
+      <ellipse
+         style="fill:#ffffff;fill-rule:evenodd;stroke-width:2.90154"
+         id="path28"
+         cx="67.578552"
+         cy="127.79526"
+         rx="65.002869"
+         ry="44.333199" />
+      <ellipse
+         style="fill:#ffffff;fill-rule:evenodd;stroke-width:2.90154"
+         id="ellipse30"
+         cx="143.01848"
+         cy="127.79526"
+         rx="65.002869"
+         ry="44.333199" />
+      <ellipse
+         style="fill:#ffffff;fill-rule:evenodd;stroke-width:2.2447"
+         id="ellipse32"
+         cx="108.20001"
+         cy="81.37072"
+         rx="50.287838"
+         ry="34.297264" />
+      <text
+         xml:space="preserve"
+         id="text34"
+         style="font-style:normal;font-weight:normal;font-size:10.5833px;line-height:1.25;font-family:sans-serif;white-space:pre;shape-inside:url(#rect36);fill:#000000;fill-opacity:1;stroke:none;"
+         transform="matrix(10.966432,0,0,10.966432,-49.350644,14.39943)"><tspan
+           x="9.8144531"
+           y="12.402802"><tspan
+             style="font-style:italic;font-weight:bold;font-size:10.5833px;fill:#214478">C</tspan></tspan></text>
+    </g>
+  </g>
+</svg>

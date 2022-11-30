@@ -1,6 +1,6 @@
 <?php
 
-error_reporting(E_COMPILE_ERROR);
+//error_reporting(E_COMPILE_ERROR);
 
 require_once "functions.php";
 require_once "mysql_connect.php";
@@ -20,13 +20,13 @@ $username = $_SESSION["user"];
 
 <head>
     <title>Cloudio - Login</title>
+    <link rel="icon" type="image/svg+xml" sizes="any" href="favicon.svg?v=1">
     <link rel="stylesheet" href="style.css">
     <meta name="viewport" content="width=device-width,height=device-height,initial-scale=1.0"/>
 </head>
 
 <body>
 <div class="login-container">
-
     <img src="img/logo.svg" class="logo" alt="LOCALHOST LOGO"/>
 
     <form action="index.php" method="post">
